@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Learning to Design and Use Tools for Robotic Manipulation">
+  <meta name="keywords" content="Reinforcement Learning, Robotics, Tool Design">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning to Design and Use Tools for Robotic Manipulation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 is-size-2 publication-title">Learning to Design and Use Tools for Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+							<a href="https://tool-design-rss-2023.github.io/">Anonymous</a>
+						</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Anonymous</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+			<center><img width="700" src="./resources/teaser.png"/></center>
+      <h2 class="subtitle has-text-centered">
+			A robot may need to use different tools to fetch an out-of-reach book (blue) or push it into the bookshelf (pink). 
+			Therefore, it should <i>rapidly prototype</i> tools for the tasks at hand.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small"> -->
+<section class="section">
+  <div class="hero-body">
+    <div class="container">
+			<center><h2 class="title is-3">Tasks</h2></center>
+			<br>
+      <div class="columns">
+				<div class="column is-one-fifth"></div>
+				<div class="column is-one-fifth">
+					<img src="./resources/task_push.gif"/>
+					<h2 class="subtitle has-text-centered">
+						Push
+					</h2>
+				</div>
+				<div class="column  is-one-fifth">
+					<img src="./resources/task_ball_catch_border.gif"/>
+					<h2 class="subtitle has-text-centered">
+						Catch Balls
+					</h2>
+				</div>
+				<div class="column  is-one-fifth">
+					<img src="./resources/task_scoop_many.gif"/>
+					<h2 class="subtitle has-text-centered">
+						Scoop
+					</h2>
+				</div>
+				<div class="column is-one-fifth"></div>
+			</div>
+			<div class="columns">
+				<div class="column is-one-fifth"></div>
+				<div class="column is-one-fifth">
+					<img src="./resources/bullet_sofa.gif"/>
+					<h2 class="subtitle has-text-centered">
+						Fetch Cube
+					</h2>
+				</div>
+				<div class="column is-one-fifth">
+					<img src="./resources/bullet_cups.gif"/>
+					<h2 class="subtitle has-text-centered">
+						Lift Cup
+					</h2>
+				</div> 
+				<div class="column is-one-fifth">
+					<img src="./resources/bullet_scoop_goal_4.gif"/>
+					<h2 class="subtitle has-text-centered">
+						3D Scoop
+					</h2>
+				</div>
+				<div class="column is-one-fifth"></div>
+			</div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+			<!-- <center><h2 class="title is-3">Tasks</h2></center> -->
+      <div id="results-carousel" class="carousel results-carousel">
+				<div class="item item-sofa-1">
+          <video poster="" id="sofa-1" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0180_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sofa-2">
+          <video poster="" id="sofa-2" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0185_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sofa-3">
+          <video poster="" id="sofa-3" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0194_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sofa-4">
+          <video poster="" id="sofa-4" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0197_4x.mp4"
+                    type="video/mp4">
+          </video>
+				</div>
+				<div class="item item-cups-1">
+          <video poster="" id="cups-1" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0201_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cups-2">
+          <video poster="" id="cups-2" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0204_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cups-3">
+          <video poster="" id="cups-3" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0207_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-cups-4">
+          <video poster="" id="cups-4" autoplay controls muted loop playsinline height="100%">
+            <source src="./resources/C0210_4x.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+					<p>
+					When limited by their own morphologies, humans and some species of animals have the remarkable ability to use objects from the environment 
+					toward accomplishing otherwise impossible tasks. Robots might similarly unlock a range of additional capabilities through tool use. 
+					Recent techniques for jointly optimizing morphology and control via deep learning output effective solutions for designing locomotion agents. 
+					But while designing a single morphology makes sense for locomotion, manipulation involves a wide variety of strategies depending on the 
+					task goals at hand. A manipulation agent must be capable of <i>rapidly prototyping</i> specialized tools for different goals. 
+					</p>
+					<p>
+					Therefore, we propose the idea of learning a <i>designer policy</i>, rather than a single design. A designer policy is conditioned 
+					on task information and outputs a design for a tool that helps solve the task. A design-conditioned controller policy can then perform 
+					manipulation using these tools. 
+					</p>
+					<p>
+					In this work, we take a step towards this goal by introducing a reinforcement learning framework for 
+					jointly learning these policies. Through simulated  manipulation tasks, we show that this framework is more sample efficient than 
+					black-box optimization methods in multi-goal or multi-variant settings, can perform zero-shot interpolation or fine-tuning to tackle 
+					previously unseen goals, and allows tradeoffs between the complexity of design and control policies under practical constraints. 
+					Finally, we deploy our learned policies onto a real robot to demonstrate our pipeline. 
+					</p>
+					 
+
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section">
+	<div class="box">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Framework</h2></center>
+		<br>
+		<img src="./resources/method.png"/>
+		<h2 class="subtitle has-text-centered">
+			Solving a task using learned designer and controller policies.
+			During the design phase, the designer policy outputs the parameters
+			for a tool that will help solve the given task. In the control phase, the
+			controller policy outputs motor commands given the tool structure,
+			task specification, and environment observation.
+    </h2>
+	</div>
+</div>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Sample Efficiency</h2></center>
+		<br>
+		<br>
+		<br>
+		<div class="columns">
+			<div class="column">
+				<img src="./resources/exp_1_hook_push_2d_control.png"/>
+				<h2 class="subtitle has-text-centered">
+					Push
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_1_ball_catch_1d_control_v2.png"/>
+				<h2 class="subtitle has-text-centered">
+					Catch Balls
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_1_box2d_chain_scoop.png"/>
+				<h2 class="subtitle has-text-centered">
+					Scoop
+				</h2>
+			</div>
+
+		</div>
+		<div class="columns">
+			<div class="column">
+				<img src="./resources/exp_1_bullet_sofa.png"/>
+				<h2 class="subtitle has-text-centered">
+					Fetch Cube
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_1_bullet_cups.png"/>
+				<h2 class="subtitle has-text-centered">
+					Lift Cup
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_1_bullet_scoop.png"/>
+				<h2 class="subtitle has-text-centered">
+					3D Scoop
+				</h2>
+			</div>
+
+		</div>
+		<h2 class="subtitle has-text-centered">
+			Learning curves for our framework and baselines on multi-variant and single-variant settings. As baselines, 
+			we present the multi-variant training performance of PGPE, as well as the performance of CEM, CMA-ES, and PGPE 
+			when optimizing for a single trajectory across all variants. We also show the mean single-variant performance of 
+			CEM, CMA-ES, and PGPE as horizontal lines. We can see that across all studied tasks, our framework achieves 
+			substantially improved performance and sample efficiency. Shaded areas indicate standard error across 6 random 
+			seeds on all methods, except the <span class="dnerf">3D scoop</span> task where we use 3 seeds due to computational constraints.
+    </h2>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Baselines</h2></center>
+		<br>
+		<br>
+		<center><h2 class="title is-4">CEM</h2></center>
+		<br>
+		<div class="columns">
+			<div class="column is-one-quarter">
+				<img src="./resources/cem_push.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Pushing
+				</h2>
+			</div>
+			<div class="column is-one-quarter">
+				<img src="./resources/cem_ball.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Ball Catching
+				</h2>
+			</div>
+			<div class="column is-one-quarter">
+				<img src="./resources/cem_scoop_1.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Scooping (one)
+				</h2>
+			</div>
+			<div class="column is-one-quarter">
+				<img src="./resources/cem_scoop_many.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Scooping (many)
+				</h2>
+			</div>
+		</div>
+		<br>
+		<center><h2 class="title is-4">CMA-ES</h2></center>
+		<br>
+		<div class="columns">
+			<div class="column is-one-quarter">
+				<img src="./resources/cmaes_push.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Pushing
+				</h2>
+			</div>
+			<div class="column is-one-quarter">
+				<img src="./resources/cmaes_ball.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Ball Catching
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/cmaes_scoop_one.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Scooping (one)
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/cmaes_scoop_many.gif"/>
+				<h2 class="subtitle has-text-centered">
+					Scooping (many)
+				</h2>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Design-Control Tradeoff</h2></center>
+		<br>
+		<br>
+		<div class="columns is-centered has-text-centered">
+      <div class="column is-half">
+				<img src="./resources/exp_3_ball_catch_1d_control_v2.png"/>
+				<h2 class="subtitle has-text-centered">
+					Control cost / design cost ratio with different α.
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/ball_2.gif"/>
+				<h2 class="subtitle has-text-centered">
+					α = 1.0
+				</h2>
+				<img src="./resources/ball_5.gif"/>
+				<h2 class="subtitle has-text-centered">
+					α = 0.3
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/ball_1.gif"/>
+				<h2 class="subtitle has-text-centered">
+					α = 0.7
+				</h2>
+				<img src="./resources/ball_4.gif"/>
+				<h2 class="subtitle has-text-centered">
+					α = 0.0
+				</h2>
+			</div>
+		</div>
+		<h2 class="subtitle has-text-centered">
+			Qualitative examples of tools generated by setting our tradeoff parameter α to different values. 
+			We can see that as α increases, the tools created by the designer policy have shorter links at 
+			the left and right sides to decrease material usage. With low α values, large tools prevent the 
+			control policy from having to move the tool far.
+    </h2>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Generalization</h2></center>
+		<br>
+		<br>
+		<br>
+		<div class="columns">
+			<div class="column">
+				<img src="./resources/cutout_visual.png"/>
+				<h2 class="subtitle has-text-centered is-6">
+					(a) Visualization of the goal space and zero-shot performance with a 0.25 cutout ratio.
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_2_hook_push_2d_control.png"/>
+				<h2 class="subtitle has-text-centered is-6">
+					(b) Cumulative episode reward versus cutout size for policies trained with progressively larger cutout regions.
+				</h2>
+			</div>
+			<div class="column">
+				<img src="./resources/exp_4_hook_push_2d_control.png"/>
+				<h2 class="subtitle has-text-centered is-6">
+					(c) Fine-tuning performance compared to learning from scratch across 3 target goals.
+				</h2>
+			</div>
+
+		</div>
+		<h2 class="subtitle has-text-centered">
+			Interpolation results on the pushing task. In (a), we plot the success (light blue) and failure (dark blue) goal regions. 
+			Areas within the dotted yellow borders denote unseen cutout regions (interpolation). The region within the teal border 
+			(but outside cutout regions) shows the training region. The area outside the teal border is unseen during training 
+			(extrapolation). (b) and (c) show reward curves (averaged over 3 runs). Shaded regions denote standard error. In (b), 
+			we observe that the performance for policies trained with small cutouts is close to that of the setting trained on all 
+			goals. In (c) we show evaluation performance of policies finetuned for a specific unseen goal compared to learning curves 
+			for single-task policies with those goals.
+    </h2>
+	</div>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop">
+		<center><h2 class="title is-3">Goal-Conditioned Design and Control</h2></center>
+		<br>
+		<br>
+		<br>
+		<div class="columns">
+			
+			<div class="column">
+				<img src="./resources/design_8.gif"/>
+				<img src="./resources/design_4.gif"/>
+				<img src="./resources/design_0.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/design_9.gif"/>
+				<img src="./resources/design_5.gif"/>
+				<img src="./resources/design_1.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/design_10.gif"/>
+				<img src="./resources/design_6.gif"/>
+				<img src="./resources/design_2.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/design_11.gif"/>
+				<img src="./resources/design_7.gif"/>
+				<img src="./resources/design_3.gif"/>
+			</div>
+		</div>
+		<div class="columns">
+			
+			<div class="column">
+				<img src="./resources/bullet_sofa.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_sofa_simple_franka_randomize_pos_real_3.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_sofa_simple_franka_randomize_pos_real_10.gif"/>
+			</div>
+		</div>
+		<div class="columns">
+			
+			<div class="column">
+				<img src="./resources/bullet_cups_franka_norand_4.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_cups_franka_norand_0.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_cups.gif"/>
+			</div>
+		</div>
+		<div class="columns">
+			
+			<div class="column">
+				<img src="./resources/bullet_scoop_goal_1.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_scoop_goal_4.gif"/>
+			</div>
+			<div class="column">
+				<img src="./resources/bullet_scoop_goal_7.gif"/>
+			</div>
+		</div>
+		<h2 class="subtitle has-text-centered">
+			Visualizations of tool designs outputted by a single learned designer policy for <span class="dnerf">push</span>, <span class="dnerf">fetch cube</span>, 
+			<span class="dnerf">lift cup</span>, and <span class="dnerf">3D scoop</span> as the initial/goal position varies. 
+    </h2>
+	</div>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+					Website template borrowed from <a
+					href="https://github.com/nerfies/nerfies.github.io">NeRFies</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
